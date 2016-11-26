@@ -3,18 +3,18 @@ import lastMovable from './last-movable'
 import positions from './positions'
 
 const combosOfLength = (a, n) => {
-  const combinations = []
+  const c = []
   const outOfBounds = a.length
   const last = n - 1
 
   let p = positions(n)
 
-  combinations.push(p.map(x => a[ x ]))
+  c.push(p.map(x => a[ x ]))
 
   const move = base => {
     if (canMove(p[ last ], outOfBounds)) {
       p[ last ]++
-      combinations.push(p.map(x => a[ x ]))
+      c.push(p.map(x => a[ x ]))
       move(last)
     }
 
@@ -22,14 +22,14 @@ const combosOfLength = (a, n) => {
 
     if (m !== null) {
       p = positions(p, { i: m, p: p[ m ] + 1 })
-      combinations.push(p.map(x => a[ x ]))
+      c.push(p.map(x => a[ x ]))
       move()
     }
   }
 
   move(last)
 
-  return combinations
+  return c
 }
 
 const combos = (a = [], n = 0) => {
